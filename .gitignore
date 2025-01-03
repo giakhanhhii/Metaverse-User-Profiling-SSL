@@ -1,0 +1,69 @@
+# ── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+backend/.venv/
+.venv/
+venv/
+env/
+
+# Runtime data (generated at runtime — not source)
+backend/uploads/
+backend/models_saved/
+backend/exports/
+backend/app.db
+backend/*.db
+*.db
+*.sqlite
+*.sqlite3
+
+# ── Node / Next.js ────────────────────────────────────────────────────────────
+node_modules/
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env.local
+
+# ── Playwright / Debug artifacts ──────────────────────────────────────────────
+*.png
+frontend/debug-browser.mjs
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Editor ────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── Env / secrets ─────────────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── Alembic compiled cache ────────────────────────────────────────────────────
+backend/alembic/__pycache__/
+backend/alembic/versions/__pycache__/
+
+# ── Docs / planning files (not needed to run the app) ────────────────────────
+*.md
+!README.md
+dashboard.md
+nckh.md
+plan*.md
+docs/
+metaverse_image_analyzer_dashboard.jsx
+frontend/AGENTS.md
+frontend/CLAUDE.md
