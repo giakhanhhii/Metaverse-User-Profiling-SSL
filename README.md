@@ -1,85 +1,86 @@
 # Metaverse User Profiling — Semi-Supervised Learning
 
-Ứng dụng phân tích hành vi người dùng Metaverse bằng học bán giám sát (SSL), tự động trích xuất đặc trưng từ ảnh và đề xuất quảng cáo cá nhân hóa.
+A Metaverse user behavior analysis application using semi-supervised learning (SSL), automatically extracting features from images and recommending personalized advertisements.
 
 ---
 
-## Cấu trúc dự án
+## Project Structure
 
 ```
 ├── backend/    FastAPI + SQLite + ML pipeline
 ├── frontend/   Next.js 14 + Tailwind CSS (builds to frontend/out/)
-├── docs/       Tài liệu nghiên cứu gốc
-└── start.ps1   Một lệnh duy nhất — build + serve
+└── start.ps1   Single command — build + serve
 ```
 
-## Khởi động (1 bước)
+## Quick Start (1 step)
 
 ```powershell
 .\start.ps1
 ```
 
-Mở trình duyệt: **http://localhost:8000**
+Open browser: **http://localhost:8000**
 
-> Script sẽ tự build frontend → copy vào `frontend/out/` → FastAPI serve cả UI lẫn API trên cùng một cổng 8000.
+> The script automatically builds the frontend → copies to `frontend/out/` → FastAPI serves both UI and API on the same port 8000.
 
 ---
 
-### Khởi động thủ công (nếu cần)
+### Manual Start (if needed)
+
+**Backend (Terminal 1)**
 
 ```powershell
 .\start_backend.ps1
-# hoặc
+# or
 cd backend
 .\.venv\Scripts\python.exe -m uvicorn app.main:app --reload --port 8000
 ```
 
 API docs: http://localhost:8000/docs
 
-### 2. Frontend (Terminal 2)
+**Frontend (Terminal 2)**
 
 ```powershell
 .\start_frontend.ps1
-# hoặc
+# or
 cd frontend
 npm run dev
 ```
 
-Ứng dụng: http://localhost:3000
+App: http://localhost:3000
 
 ---
 
-## Quy trình sử dụng
+## Workflow
 
-1. **Tải lên** — Upload file ZIP chứa ảnh theo cấu trúc `user_001/img.jpg`
-2. **Xử lý** — Pipeline: CLIP embedding → Semi-supervised self-training (5 models)
-3. **Kết quả** — Dashboard: metrics, phân phối sở thích, gợi ý quảng cáo
-4. **Chi tiết** — Xem dự đoán từng ảnh từ 5 mô hình
-5. **Xuất** — Download CSV / Excel / JSON / PDF
+1. **Upload** — Upload a ZIP file containing images structured as `user_001/img.jpg`
+2. **Processing** — Pipeline: CLIP embedding → Semi-supervised self-training (5 models)
+3. **Results** — Dashboard: metrics, interest distribution, ad recommendations
+4. **Detail** — View per-image predictions from all 5 models
+5. **Export** — Download CSV / Excel / JSON / PDF
 
 ---
 
-## Pipeline ML
+## ML Pipeline
 
 ```
-ZIP → Trích xuất CLIP (ViT-B/32, 512-dim) → Zero-shot seed labels
-    → Self-training (3 vòng, conf ≥ 0.85)
+ZIP → CLIP feature extraction (ViT-B/32, 512-dim) → Zero-shot seed labels
+    → Self-training (3 rounds, conf ≥ 0.85)
     → 5 classifiers: LR / DT / RF / SVM / KNN
-    → Tổng hợp user profile → Gợi ý quảng cáo
-    → Đánh giá: Accuracy, Precision, Recall, F1
+    → User profile aggregation → Ad recommendations
+    → Evaluation: Accuracy, Precision, Recall, F1
 ```
 
-## Các mô hình ML
+## ML Models
 
-| Mô hình | Đặc điểm |
-|---------|----------|
-| Logistic Regression | Nhanh, diễn giải được |
-| Decision Tree | Trực quan, dễ hiểu |
-| Random Forest | Ổn định, ít overfitting |
-| SVM | Hiệu quả với không gian chiều cao |
-| KNN | Đơn giản, không cần training |
+| Model | Characteristics |
+|-------|----------------|
+| Logistic Regression | Fast, interpretable |
+| Decision Tree | Visual, easy to understand |
+| Random Forest | Stable, low overfitting |
+| SVM | Effective in high-dimensional space |
+| KNN | Simple, no training required |
 
-## 30 Nhãn sở thích
+## 30 Interest Labels
 
 advertise, animal, art, baby, beach, beauty, books, cars, cooking, education,
 fashion, finance, fitness, food, gaming, garden, health, home, humor, music,
