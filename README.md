@@ -1,136 +1,169 @@
-About:
+# 🌐 Metaverse User Profiling & Advertising Personalization
+### 🚀 Personalized Advertising via Semi-Supervised Learning (SSL)
 
-- The focus of this study is on image classification. Image classification involves the process of categorizing and labeling groups of pixels or vectors within an image based on specific rules. 
-- This study aim to propose a machine learning model that is able to classify images with high accuracy.
-- This study aim to compare the performance of the models from both traditional machine learning and deep learning with different enhancement method.
-- Various enhancement such as hybrid, ensemble or reinforcement learning were made to the traditional and deep learning models to obtain the proposed model for classifying image with high accuracy. 
+<p align="center">
+  <img src="https://img.shields.io/badge/Research-Scientific-blue?style=for-the-badge&logo=googlescholar" />
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/Scikit--Learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white" />
+  <img src="https://img.shields.io/badge/Metaverse-Personalization-8A2BE2?style=for-the-badge" />
+</p>
 
-Dataset:
+---
 
-- The dataset chosen is the CIFAR-10 dataset. 
-- The dataset consists of **60000** color images with the size of 32 x 32 and has 3 channels which are R, G and B. Each image in the dataset is labeled with 1 of the 10 classes which are airplane, automobile, bird, cat, deer, dog, frog, horse, ship, and truck. There are a total of 6000 images for each class with 5000 images in the train dataset and 1000 images in the test dataset
+## 📌 Project Overview
 
-Data Preprocessing:
+This repository contains the experimental framework and research findings for a scientific study conducted at **Thuongmai University**: 
+> *"Utilizing Semi-Supervised Learning for User Profiling: Applications in Metaverse Advertising Personalization"*.
 
-1) Scaling: Normalize the pixel values to a standard range within (0, 1)
-   
-3) Image augmentation:  Generate additional training data by applying random transformations (Horizontally flipping the image, Rotating the image, and Shifting the image left or right and up and down) to existing images, helping to improve the generalization of the model.
-   
-4) Histogram of oriented gradients (HOG): Capture edge and shape information in images by computing the distribution of gradient orientations.
-   
-5) Principal component analysis (PCA): Reduce the dimensionality of large datasets by transforming the large set of features into a smaller one while still retaining most of the information.
-   
---------------------------------------------------------------------------------------------------------------------------------
+In the emerging Metaverse era, understanding user characteristics is essential for optimizing advertising costs and enhancing user experience. This study proposes a **Semi-Supervised Learning (SSL)** approach to classify user image data, addressing the challenge of limited labeled data in complex digital environments.
 
-Individual Model Parameter Tuning:
-1) Random Search
-2) Bayesian Optimization
-   
-   LightGBM: 
-   - num_leaves: [10,12,14,16,18,20]
-   - min_child_samples: [20,30,40]
-   - max_depth: [10,12,13]
-   - min_split_gain: [10,11,12]
-   - boosting_type: [gbdt,dart]
-   
-   KNN
-   - n_neighbors: [1,5,10,15,20]
-   - weights: [uniform, distance]
-   - metric: [minkowski,euclidean,manhattan]
-   - lgorithm: [auto, ball_tree, kd_tree, brute]
-   
-   Logistic Regression
-   - solver: [newton-cg, sag, saga,lbfgs]
-   - C: [100, 10, 1.0, 0.1, 0.01,0.001]
+---
 
-Machine Learning Ensemble Model:
-- **Stacking, Voting, and Bagging Ensemble model was proposed further to improve the image classification on the CIFAR-10 dataset to overcome the limitation of the baseline model in classifying images.**
+## 🛠 Technical Framework & Methodology
 
---------------------------------------------------------------------------------------------------------------------------------
+The project utilizes a **Self-training** architecture to leverage a small set of labeled data alongside a larger pool of unlabeled images.
 
-Training parameters for Voting and Stacking model: LGBM-KNN
-LGBMClassifier
-- learning_rate=0.02375374380489134
-- max_depth=11
-- min_child_samples=15
-- num_leaves=49
-- random_state=42
-- reg_alpha=0.16183089874674544
+### 🏗️ Data Pipeline
+* **Preprocessing:** Pixel values scaled to `(0, 1)`.
+* **Standardization:** All images resized to $128 \times 128$ (RGB).
+* **Feature Engineering:** * **HOG** (Histogram of Oriented Gradients) for shape extraction.
+    * **PCA** (Principal Component Analysis) for dimensionality reduction.
 
-KNeighborsClassifier
-- algorithm='ball_tree'
-- metric='manhattan'
-- n_neighbors=10
+### 🤖 Evaluated Algorithms
+We compared five core models to find the optimal classifier for the SSL loop:
+* **Random Forest** (SOTA in this study)
+* **SVM** | **Logistic Regression** | **KNN** | **Decision Tree**
 
-Training parameters for Voting and Stacking model: LGBM-KNN-LR
-LGBMClassifier
-- learning_rate=0.02375374380489134
-- max_depth=11
-- min_child_samples=15
-- num_leaves=49
-- random_state=42
-- reg_alpha=0.16183089874674544
+---
 
-KNeighborsClassifier
-- algorithm='ball_tree'
-- metric='manhattan'
-- n_neighbors=10
+## 📊 Dataset Specifications
 
-Logistic Regression
-- C=100
-- random_state=42
-- solver='saga
+The research utilized a custom-built dataset derived from real-world digital activity to represent the Metaverse social ecosystem.
 
-Training parameters for Bagging model: LGBM
-- learning_rate=0.02375374380489134
-- max_depth=11
-- min_child_samples=15
-- num_leaves=49
-- random_state=42
-  reg_alpha=0.16183089874674544
+| Metric | Details |
+| :--- | :--- |
+| **Total Images** | 9,748 validated images |
+| **User Profiles** | 500 unique profiles |
+| **Granular Labels** | 52 categories (Fashion, Tech, Food, etc.) |
+| **Demographic** | Users aged 18–45 |
 
-Reinforcement Learning
+---
 
-Deep Learning Models:
-- Hybrid CNN+ANN
-- Hybrid CNN + ML (LGBM + SVM)
+## 🏆 Performance Benchmarks
 
---------------------------------------------------------------------------------------------------------------------------------
+Experimental results conducted on *Intel Core i5-1235U, 16GB RAM*. **Random Forest** provided the best balance of accuracy and speed.
 
-Results:
-1) Individual Models
+| Algorithm | Avg. Accuracy (5-folds) | Test Accuracy | Training Time |
+| :--- | :---: | :---: | :---: |
+| 🌲 **Random Forest** | **0.7880** | **0.7868** | **7.19s** |
+| 🛡️ SVM | 0.7418 | 0.7342 | 170.56s |
+| 📈 Logistic Regression | 0.7120 | 0.7059 | 212.50s |
+| 📍 KNN | 0.6865 | 0.6923 | 2.09s |
+| 🌳 Decision Tree | 0.6305 | 0.6397 | 123.74s |
 
-   - Scale Results
-     
-![image](https://github.com/user-attachments/assets/d699d290-eb07-4122-a7d1-9f128436e275)
+---
 
-   - HOG
-     
-   ![image](https://github.com/user-attachments/assets/34fed824-098c-4305-ac61-4ca0293dbbdd)
+## 🚀 Future Roadmap
 
+- [ ] **Deep Learning:** Transitioning to CNNs and Siamese Networks.
+- [ ] **Multimodal AI:** Integrating OCR and NLP for post-caption analysis.
+- [ ] **Graph Mining:** Utilizing social relationship networks to refine clusters.
 
-3) ML Ensemble Models
-   
-   ![image](https://github.com/user-attachments/assets/f31d0a26-b2e9-4868-87e7-64a0c1d7db0f)
+---
 
-Comparison of Top 3 Individual Model and Best Ensemble Model - Accuracy Scores
+## 🎓 Research Team
 
-![image](https://github.com/user-attachments/assets/bed1409c-c2de-4fd1-9fa5-0aa8ac51f00a)
+**Management Information Systems (MIS), Thuongmai University**
 
-4) Deep Learning Models
+* **Nguyen Trieu Gia Khanh**
+* **Pham Huong Giang**
+* **Dinh Thi Ngoc Diem**
 
-   ![image](https://github.com/user-attachments/assets/4f0fae25-ffeb-4c0b-a5a8-1d08667b72c7)
+**Supervised by:** 👨‍🏫 **Dr. Nguyen Thi Hoi** *Vice Dean of Faculty of Economic Information Systems and E-commerce.*
 
-**Final: The testing accuracy of the CNN model with Reinforcement Learning is 84.77%. It is the highest as compared to the other Hybrid and Ensemble deep learning models. This is because in this CNN model with Reinforcement Learning, a policy-based reinforcement learning algorithm, REINFORCE was used to maximise the expected reward function which is the validation accuracy.**
+---
+<p align="center">© 2025 Research Project - Thuongmai University</p> # 🌐 Metaverse User Profiling & Advertising Personalization
+### 🚀 Personalized Advertising via Semi-Supervised Learning (SSL)
 
---------------------------------------------------------------------------------------------------------------------------------
+<p align="center">
+  <img src="https://img.shields.io/badge/Research-Scientific-blue?style=for-the-badge&logo=googlescholar" />
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/Scikit--Learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white" />
+  <img src="https://img.shields.io/badge/Metaverse-Personalization-8A2BE2?style=for-the-badge" />
+</p>
 
-Framework:
+---
 
-![image](https://github.com/user-attachments/assets/10d13095-85f1-4711-b08d-3bd626f29598)
+## 📌 Project Overview
 
-![image](https://github.com/user-attachments/assets/570c756a-0a45-41f8-91b4-c9ff50e5c4d1)
+This repository contains the experimental framework and research findings for a scientific study conducted at **Thuongmai University**: 
+> *"Utilizing Semi-Supervised Learning for User Profiling: Applications in Metaverse Advertising Personalization"*.
 
-![image](https://github.com/user-attachments/assets/38b0f84b-1c8e-4812-bf97-f1eb1afa41ce)
+In the emerging Metaverse era, understanding user characteristics is essential for optimizing advertising costs and enhancing user experience. This study proposes a **Semi-Supervised Learning (SSL)** approach to classify user image data, addressing the challenge of limited labeled data in complex digital environments.
 
+---
 
+## 🛠 Technical Framework & Methodology
+
+The project utilizes a **Self-training** architecture to leverage a small set of labeled data alongside a larger pool of unlabeled images.
+
+### 🏗️ Data Pipeline
+* **Preprocessing:** Pixel values scaled to `(0, 1)`.
+* **Standardization:** All images resized to $128 \times 128$ (RGB).
+* **Feature Engineering:** * **HOG** (Histogram of Oriented Gradients) for shape extraction.
+    * **PCA** (Principal Component Analysis) for dimensionality reduction.
+
+### 🤖 Evaluated Algorithms
+We compared five core models to find the optimal classifier for the SSL loop:
+* **Random Forest** (SOTA in this study)
+* **SVM** | **Logistic Regression** | **KNN** | **Decision Tree**
+
+---
+
+## 📊 Dataset Specifications
+
+The research utilized a custom-built dataset derived from real-world digital activity to represent the Metaverse social ecosystem.
+
+| Metric | Details |
+| :--- | :--- |
+| **Total Images** | 9,748 validated images |
+| **User Profiles** | 500 unique profiles |
+| **Granular Labels** | 52 categories (Fashion, Tech, Food, etc.) |
+| **Demographic** | Users aged 18–45 |
+
+---
+
+## 🏆 Performance Benchmarks
+
+Experimental results conducted on *Intel Core i5-1235U, 16GB RAM*. **Random Forest** provided the best balance of accuracy and speed.
+
+| Algorithm | Avg. Accuracy (5-folds) | Test Accuracy | Training Time |
+| :--- | :---: | :---: | :---: |
+| 🌲 **Random Forest** | **0.7880** | **0.7868** | **7.19s** |
+| 🛡️ SVM | 0.7418 | 0.7342 | 170.56s |
+| 📈 Logistic Regression | 0.7120 | 0.7059 | 212.50s |
+| 📍 KNN | 0.6865 | 0.6923 | 2.09s |
+| 🌳 Decision Tree | 0.6305 | 0.6397 | 123.74s |
+
+---
+
+## 🚀 Future Roadmap
+
+- [ ] **Deep Learning:** Transitioning to CNNs and Siamese Networks.
+- [ ] **Multimodal AI:** Integrating OCR and NLP for post-caption analysis.
+- [ ] **Graph Mining:** Utilizing social relationship networks to refine clusters.
+
+---
+
+## 🎓 Research Team
+
+**Management Information Systems (MIS), Thuongmai University**
+
+* **Nguyen Trieu Gia Khanh**
+* **Pham Huong Giang**
+* **Dinh Thi Ngoc Diem**
+
+**Supervised by:** 👨‍🏫 **Dr. Nguyen Thi Hoi** *Vice Dean of Faculty of Economic Information Systems and E-commerce.*
+
+---
+<p align="center">© 2025 Research Project - Thuongmai University</p>
