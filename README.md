@@ -4,7 +4,7 @@ A Metaverse user behavior analysis application using semi-supervised learning (S
 
 ---
 ## Dashboard
-![Uploading metaverse dashboard.png…]()
+<img width="1897" height="867" alt="metaverse dashboard" src="https://github.com/user-attachments/assets/073953c6-9668-4f34-be31-3740b50195bf" />
 
 ## Project Structure
 
