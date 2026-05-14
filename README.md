@@ -3,6 +3,8 @@
 A Metaverse user behavior analysis application using semi-supervised learning (SSL), automatically extracting features from images and recommending personalized advertisements.
 
 ---
+## Dashboard
+![Uploading metaverse dashboard.png…]()
 
 ## Project Structure
 
